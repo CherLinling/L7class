@@ -1,58 +1,66 @@
 <!DOCTYPE html>
- <html>
-   <head>
+<html>
+<head>
+  <style>
+    body {
+      /* 设置背景图片 */
+      background-image: url('background.jpg');
+      
+      /* 让背景图片覆盖整个页面 */
+      background-size: cover;
+      
+      /* 设置背景图片不随页面滚动 */
+      background-attachment: fixed;
+      
+      /* 设置背景图片从页面左上角开始 */
+      background-position: left top;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <p>Easter Waltz</p><br>
+    <video src="Easter.mp4" id="Video" width="400" controls></video>
+    <br>
+    <!-- 进度条 -->
+    <progress id="ProgressBar" value="0" max="100"></progress>
+    <br>
+    <button onClick="MyVideo()">Play</button>
+    <button onClick="MyVideo2()">Pause</button>
+    <button onClick="MyVideo3()">Restart</button>
+    <br>
 
-   </head>
-   <body>
-     <center>
-    
-     <p>Play, Pause and Stop</p><br>
-     <video src="COW.mp4" id="Video" Width="400"></video>
-     <audio src="londonbridge.mp3" id="Audio"></audio>
-     <script>
-     function MyVideo() { 
-         document.getElementById="Video".play();
-     }
-
-     function MyVideo2() { 
-         document.getElementById ("Video").pause();
-     }
-
-     function MyVideo3() { 
-         document.getElementById ("Video").pause();
-         document.getElementById ("Video").currenttime=0;
-     }
- 
-   </script>
-     <br></br>
-     <button onClick= "MyVideo()">Play </button>
-     <button onClick="MyVideo2()" >Pause </button>
-     <button onClick="MyVideo3()">Restart</button>
-     <br></br>
-        <p>Song-Play, Pause and Stop</p><br>
-      <img src="music.jpg" width="320"><br></br>
-        <br></br>
-        <button onClick= "Audio()">Play </button>
-        <button onClick="Audio2()" >Pause </button>
-        <button onClick="Audio3()">Restart</button>
     <script>
-     function Audio() { 
-     document.getElementById="Audio".play();
-     }
-     function Audio() {
-         document.getElementById ("Audio").pause();
-     }
-     function Audio() { 
-         document.getElementById ("Audio").pause();
-         document.getElementById ("Audio").currenttime=0;
-     }
- 
+      function MyVideo() { 
+          var video = document.getElementById("Video");
+          video.play();
+          updateProgressBar();
+      }
+
+      function MyVideo2() { 
+          document.getElementById("Video").pause();
+      }
+
+      function MyVideo3() { 
+          var video = document.getElementById("Video");
+          video.pause();
+          video.currentTime = 0;
+          updateProgressBar();
+      }
+
+      var video = document.getElementById("Video");
+      var progressBar = document.getElementById("ProgressBar");
+      video.addEventListener('timeupdate', updateProgressBar, false);
+
+      function updateProgressBar() {
+          if (!video.ended) {
+              var value = (100 / video.duration) * video.currentTime;
+              progressBar.value = value;
+          } else {
+              progressBar.value = 0;
+          }
+      }
     </script>
-
-
-
-   </center>
-
-
-  </body>
+  </center>
+</body>
 </html>
